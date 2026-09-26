@@ -1,0 +1,16 @@
+services:
+  mariadb:
+    image: mariadb:11.4
+    container_name: influenceiq-mariadb
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: influenceiq
+    ports:
+      - "3306:3306"
+    volumes:
+      - influenceiq_db:/var/lib/mysql
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+
+volumes:
+  influenceiq_db:
